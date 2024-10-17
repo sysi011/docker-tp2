@@ -1,0 +1,7 @@
+## Commandes à exécuter ##
+docker build -t my-nginx .
+docker build -t script .
+docker run -d --name script my-php-fpm
+docker run -d -p 8080:8080 -v $(pwd):/app --name http --link script my-nginx
+
+
