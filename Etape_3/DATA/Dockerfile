@@ -1,0 +1,8 @@
+FROM mysql:5.7
+
+ENV MYSQL_ROOT_PASSWORD=rootpassword
+ENV MYSQL_DATABASE=wordpress
+ENV MYSQL_USER=wpuser
+ENV MYSQL_PASSWORD=wppassword
+
+EXPOSE 3306

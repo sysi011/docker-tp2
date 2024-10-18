@@ -1,0 +1,17 @@
+## Commandes à exécuter ##
+Télécharger manuellement WordPress depuis ce lien https://wordpress.org/latest.tar.gz et l'extraire dans le répertoire Etape_3/SCRIPT
+mv wordpress/* .
+rmdir wordpress
+docker build -t my-nginx-wp .
+docker build -t my-php-fpm-wp .
+docker build -t my-mysql-wp .
+docker network create wordpress-network
+Rep DATA : docker run -d --name db-wp --network wordpress-network -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=wordpress -e MYSQL_USER=wpuser -e MYSQL_PASSWORD=wppassword my-mysql-wp
+Rep Script : docker run -d --name script-wp --network wordpress-network -v ${pwd}:/app -p 9001:9000 my-php-fpm-wp
+Rep Script : docker run -d -p 8081:8080 --network wordpress-network -v ${pwd}:/app --name http-wp my-nginx-wp
+
+
+
+
+
+

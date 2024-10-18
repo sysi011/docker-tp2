@@ -1,0 +1,9 @@
+## Commandes à exécuter ## 
+docker build -t my-mysql .
+rep data : docker run -d --name db -e MYSQL_ROOT_PASSWORD=rootpassword -e MYSQL_DATABASE=testdb -e MYSQL_USER=testuser -e MYSQL_PASSWORD=testpassword my-mysql
+docker stop script
+docker rm script
+docker run -d --name script -v ${pwd}:/app --link db -p 9000:9000 my-php-fpm
+docker stop http
+docker rm http
+docker run -d -p 8080:8080 -v ${pwd}:/app --link script --link db --name http my-nginx

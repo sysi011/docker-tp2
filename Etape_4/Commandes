@@ -1,0 +1,3 @@
+## Commandes à exécuter ##
+Chemin vers Etape4
+docker-compose up --build

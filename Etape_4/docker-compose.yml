@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: ./HTTP
+    container_name: http-wp
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./SCRIPT:/app
+    depends_on:
+      - php
+    networks:
+      - wp-network
+
+  php:
+    build:
+      context: ./SCRIPT
+    container_name: script-wp
+    volumes:
+      - ./SCRIPT:/app
+    expose:
+      - "9000"
+    networks:
+      - wp-network
+
+  db:
+    image: mysql:5.7
+    container_name: db-wp
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wpuser
+      MYSQL_PASSWORD: wppassword
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - wp-network
+
+networks:
+  wp-network:
+
+volumes:
+  db_data:
